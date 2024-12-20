@@ -1,101 +1,549 @@
+"use client"
+import React, {useEffect, useState} from 'react';
 import Image from "next/image";
+import './globals.css'
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
-}
+const projects = [
+    {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/celebrating-our-stories.png', // Replace with actual image paths
+    }, {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/dunstun-travel.png', // Replace with actual image paths
+    }, {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/triptick-1.png', // Replace with actual image paths
+    },
+    {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/riyadh.png', // Replace with actual image paths
+    }, {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/triohubwomen.png', // Replace with actual image paths
+    },
+    {
+        title: 'E-Commerce Website',
+        description: 'A responsive e-commerce platform built with WordPress.',
+        techStack: 'WordPress, WooCommerce',
+        image: '/assets/images/smfundraisingconsultants.png', // Replace with actual image paths
+    },
+    {
+        title: 'Mobile Booking App',
+        description: 'A React Native app for booking appointments seamlessly.',
+        techStack: 'React Native, Firebase',
+        image: '/assets/images/aara.png',
+    },
+];
+
+const plans = [
+    {
+        title: 'Basic',
+        international: 100,
+        local: 7999,
+        services: {
+            wordpress: [
+                'Single-page WordPress website',
+                'Basic SEO setup',
+                'Responsive design',
+                'Simple contact form integration',
+            ],
+            mobile: ['Static splash screen', 'Basic navigation (React Native)', 'No backend functionality'],
+            fullstack: ['Static HTML/React landing page', 'Basic styling', 'No backend functionality'],
+            graphics: [""]
+        },
+    },
+    {
+        title: 'Standard',
+        international: 599,
+        local: 34999,
+        services: {
+            wordpress: [
+                'Multi-page WordPress website (up to 5 pages)',
+                'Intermediate SEO setup',
+                'Responsive design',
+                'Social media integration',
+            ],
+            mobile: [
+                'Multi-screen app',
+                'API integration',
+                'Authentication (email/password)',
+                'Supports iOS and Android',
+            ],
+            fullstack: [
+                'Simple full-stack web app',
+                'Basic backend (Node.js/Flask)',
+                'Database integration (PostgreSQL/MySQL)',
+            ],
+            graphics: [""]
+        },
+    },
+    {
+        title: 'Premium',
+        international: 999,
+        local: 49999,
+        services: {
+            wordpress: [
+                'Custom WordPress theme',
+                'Unlimited pages with advanced responsiveness',
+                'E-commerce integration (20 products)',
+                'Newsletter subscription setup',
+            ],
+            mobile: [
+                'Fully functional app',
+                'Advanced features (e.g., maps, notifications)',
+                'Backend with cloud storage (Firebase)',
+                'App store submission support',
+            ],
+            fullstack: [
+                'Complex full-stack web app',
+                'Advanced backend with API integrations',
+                'Real-time features (chat, notifications)',
+                'Deployment on AWS/GCP',
+            ],
+            graphics: [""]
+        },
+    },
+];
+
+const LandingPage: React.FC = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState<'wordpress' | 'mobile' | 'fullstack' | 'graphics'>('wordpress');
+    const [currency, setCurrency] = useState('USD');
+
+
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Handle form submission logic here (e.g., API call)
+        alert('Thank you! Your details have been submitted.');
+        closeModal();
+    };
+
+
+    useEffect(() => {
+        // Function to get user's geolocation
+        const getUserLocation = async () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const {latitude, longitude} = position.coords;
+                        await fetchLocationData(latitude, longitude);
+                    },
+                    (error) => {
+                        console.error('Error getting location:', error);
+                        setCurrency('USD'); // Default to USD if geolocation fails
+                    }
+                );
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+                setCurrency('USD');
+            }
+        };
+
+        // Function to fetch location based on coordinates and currency data
+        const fetchLocationData = async (latitude: number, longitude: number) => {
+            // Get country from geolocation coordinates (you can also use other services)
+            try {
+                const locationResponse = await fetch(`https://geocode.xyz/${latitude},${longitude}?json=1`);
+                const locationData = await locationResponse.json();
+
+                // const userCurrency = locationData.countrycode;
+                if (locationData.country === 'Kenya') {
+                    setCurrency('KES' || 'USD'); // Default to USD if no currency info available
+                    // console.log({userCurrency});
+                }
+
+            } catch (err) {
+                console.error('Error fetching location data:', err);
+                setCurrency('USD');
+            }
+        };
+
+
+        getUserLocation();
+
+
+    }, []);
+
+
+    const handleCalendlyPopup = () => {
+        // Calendly popup logic
+        Calendly.initPopupWidget({url: 'https://calendly.com/murithibrianm/project-discovery-call'});
+        return false;
+    };
+
+
+    return (
+        <>
+            <div className="bg-gray-50">
+                {/* Navbar */}
+                <nav className="fixed w-full bg-white shadow-md z-50 top-0">
+                    <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+                        {/*<h1 className="text-xl font-bold text-blue-600">Fazilabs</h1>*/}
+                        <Image src={'/assets/images/logo-1.png'} alt={"Logo"} width={100} height={100}/>
+                        <ul className="hidden md:flex space-x-6">
+                            {['About Us', 'Services', 'Projects', 'Testimonials', 'Pricing', 'Contact'].map((label, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={`#${label.toLowerCase().replace(' ', '-')}`}
+                                        className="text-gray-700 hover:text-blue-600 font-medium"
+                                    >
+                                        {label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                        <button
+                            // onClick={() => setShowModal(true)}
+                            onClick={handleCalendlyPopup}
+                            className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-500 transition"
+                        >
+                            Book a Discovery Call
+                        </button>
+                        {/*<a href=""*/}
+                        {/*   onClick="Calendly.initPopupWidget({url: 'https://calendly.com/murithibrianm/project-discovery-call'});return false;">Schedule*/}
+                        {/*    time with me</a>*/}
+                    </div>
+                </nav>
+
+                <main className="mt-20">
+                    {/* Hero Section */}
+                    <section
+                        className="relative text-white py-20 text-center min-h-96"
+
+                    >
+
+                        <div
+                            className="absolute inset-0 bg-cover bg-center backdrop-blur-sm "
+                            style={{
+                                backgroundImage: `url(/assets/images/fliped-keyboard-scaled.jpg)`,
+                            }}
+                        ></div>
+                        {/*Overlay*/}
+                        <div className="max-w-5xl mx-auto px-6 relative z-10">
+                            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                                Welcome to <span className="text-yellow-400">Fazilabs Digital Services</span>
+                            </h1>
+                            <p className="mt-6 text-lg md:text-2xl">
+                                Transforming your ideas into <span
+                                className="font-semibold">stunning websites</span> and <span className="font-semibold">mobile apps</span>.
+                            </p>
+                            <div className="mt-8">
+                                <a
+                                    href="#services"
+                                    className="px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"
+                                >
+                                    Explore Our Services
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* About Section */}
+                    <section className="relative bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-20">
+                        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
+                            {/* Text Content */}
+                            <div data-aos="fade-right">
+                                <h2 className="text-4xl font-bold mb-6">
+                                    About <span className="text-yellow-400">Fazilabs</span>
+                                </h2>
+                                <p className="text-lg mb-6 leading-relaxed">
+                                    At Fazilabs Digital Services, we specialize in building innovative solutions for
+                                    businesses of all sizes.
+                                    From WordPress websites to mobile apps and custom projects, we bring your ideas to
+                                    life with precision and care.
+                                </p>
+                                <ul className="space-y-4">
+                                    <li className="flex items-center">
+          <span className="bg-yellow-400 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+            ✓
+          </span>
+                                        <p>Professional and Creative Solutions</p>
+                                    </li>
+                                    <li className="flex items-center">
+          <span className="bg-yellow-400 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+            ✓
+          </span>
+                                        <p>Tailored Digital Services</p>
+                                    </li>
+                                    <li className="flex items-center">
+          <span className="bg-yellow-400 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+            ✓
+          </span>
+                                        <p>Customer-Centric Approach</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Image Content */}
+                            <div data-aos="fade-left" className="relative">
+                                <div
+                                    className="absolute inset-0 bg-blue-500 rounded-lg transform scale-95 blur-xl opacity-40"></div>
+                                <img
+                                    src="/assets/images/header-background-image.png" // Replace with an actual image path
+                                    alt="About Fazilabs"
+                                    className="relative rounded-lg shadow-lg w-full object-cover"
+                                />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Services Section */}
+                    <section id="services" className="py-16 bg-gray-100 text-gray-700">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <h2 className="text-3xl md:text-4xl font-bold">Our Services</h2>
+                            <p className="mt-4 text-lg md:text-xl leading-relaxed w-[80%] mx-auto">We help you advance
+                                your business to new heights.</p>
+                            <div className="mt-10 grid gap-8 md:grid-cols-3">
+                                {[
+                                    {
+                                        title: 'WordPress Development',
+                                        description: 'Custom WordPress themes, plugins, and solutions tailored to your brand.',
+                                        icon: '🌐',
+                                    },
+                                    {
+                                        title: 'Mobile App Development',
+                                        description: 'Cross-platform apps built with React Native for seamless performance.',
+                                        icon: '📱',
+                                    },
+                                    {
+                                        title: 'Custom Web Development',
+                                        description: 'Modern web solutions using React.js, Next.js, and Python Flask.',
+                                        icon: '💻',
+                                    },
+                                ].map((service, index) => (
+                                    <div
+                                        key={index}
+                                        className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+                                    >
+                                        <div className="text-4xl">{service.icon}</div>
+                                        <h3 className="mt-4 text-xl font-semibold">{service.title}</h3>
+                                        <p className="mt-2 text-gray-600">{service.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+
+                    {/* Projects Section */}
+                    <section id="projects" className="py-16 px-6 bg-white text-gray-700">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <h2 className="text-3xl md:text-4xl font-bold">Our Projects</h2>
+                            <p className="mt-4 text-lg">Here are some projects we've worked on:</p>
+                            <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                                {projects.map((project, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative group bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 "
+
+                                    >
+                                        <div
+                                            style={{
+                                                backgroundImage: `url(${project.image})`,
+                                            }}
+                                            className="w-full h-96 bg-cover bg-top transition-all duration-[3000ms] group-hover:bg-bottom"
+                                        ></div>
+                                        <div
+                                            className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white">
+                                            <div
+                                                className="bg-white w-[80%] rounded-lg transition-all ease-in-out duration-[4000ms] text-gray-700 p-3">
+                                                <h3 className="text-xl font-bold">{project.title}</h3>
+                                                <p className="mt-2 text-xs font-semibold">{project.techStack}</p>
+                                                <p className="mt-2 text-sm">{project.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+
+                    {/*Pricing*/}
+                    <section id="pricing" className="py-16 bg-gray-100 text-gray-700">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <h2 className="text-3xl md:text-4xl font-bold">Pricing</h2>
+                            <div className="mt-6 flex justify-center space-x-4">
+                                {['wordpress', 'mobile', 'fullstack', 'graphics'].map((tab) => (
+                                    <button
+                                        key={tab}
+                                        className={`px-4 py-2 rounded ${
+                                            activeTab === tab ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                                        }`}
+                                        onClick={() => setActiveTab(tab as 'wordpress' | 'mobile' | 'fullstack' | 'graphics')}
+                                    >
+                                        {tab === 'wordpress'
+                                            ? 'WordPress'
+                                            : tab === 'mobile'
+                                                ? 'Mobile Development' : tab === 'fullstack' ?
+                                                    'Full-Stack' : "Design"}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="mt-10 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
+                                {plans.map((plan, index) => (
+                                    <div
+                                        key={index}
+                                        className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 text-left"
+                                    >
+                                        <h4 className="text-xl font-semibold text-center">{plan.title}</h4>
+                                        <p className="text-lg font-bold mt-2 text-center">From {currency === 'KES' ? `Ksh. ${plan?.local?.toLocaleString()}` : `$ ${plan?.international}`}</p>
+                                        <ul className="mt-4 text-sm text-gray-600">
+                                            {plan.services[activeTab].map((service, i) => (
+                                                <li key={i}>- {service}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Custom Pricing Option */}
+                            <div
+                                className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 mt-10">
+                                <p className="mt-4 text-xl text-gray-600 w-[80%] mx-auto">
+                                    Have specific requirements? Share your details with us, and we'll create a
+                                    tailored package just for you!
+                                </p>
+                                <button
+                                    onClick={openModal}
+                                    className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+                                >
+                                    Get a Customized Plan
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section id="contact" className="py-16 bg-blue-600 text-white ">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <h2 className="text-3xl md:text-4xl font-bold ">Get in Touch</h2>
+                            <p className="mt-4 text-lg">Contact us to discuss your project requirements.</p>
+                            <a
+                                href="mailto:hello@fazilabs.com"
+                                className="mt-6 inline-block px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"
+                            >
+                                Contact Us
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-6 bg-gray-800 text-gray-300">
+                        <div className="text-center">
+                            <p>&copy; 2024 Fazilabs Digital Services. All rights reserved.</p>
+                        </div>
+                    </footer>
+                </main>
+            </div>
+            {/* Modal for Calendly */}
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative text-gray-700">
+                        <button
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        >
+                            ✖
+                        </button>
+                        <h3 className="text-xl font-bold mb-4 text-center">Book a Discovery Call</h3>
+                        <div className="calendly-inline-widget min-w-[100%] h-[84vh]"
+                             data-url="https://calendly.com/murithibrianm/project-discovery-call?hide_event_type_details=1&hide_gdpr_banner=1"
+
+                        ></div>
+
+                    </div>
+                </div>
+            )}
+
+            {/* Modal for Custom Plan */}
+            {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+                        <h3 className="text-2xl font-bold mb-4 text-gray-700">Tell Us About Your Needs</h3>
+                        <form onSubmit={handleFormSubmit}>
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                    Full Name
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    className="mt-1 block w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    className="mt-1 block w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                    Phone Number
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    className="mt-1 block w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="details" className="block text-sm font-medium text-gray-700">
+                                    Project Details
+                                </label>
+                                <textarea
+                                    id="details"
+                                    rows={4}
+                                    className="mt-1 block w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Tell us more about your requirements..."
+                                ></textarea>
+                            </div>
+                            <div className="flex justify-end space-x-4">
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"
+                    async></script>
+        </>
+    );
+};
+
+export default LandingPage;
