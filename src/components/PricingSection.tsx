@@ -1,19 +1,7 @@
 import React, {useState} from "react";
 
-interface Plan {
-    title: string;
-    international: never;
-    local: never;
-    services: Record<string, string[]>;
-}
 
-interface PricingSectionProps {
-    plans: Plan[];
-    currency: string;
-    openModal: () => void;
-}
-
-const PricingSection: React.FC<PricingSectionProps> = ({plans, currency, openModal}) => {
+const PricingSection = ({plans, currency, openModal}) => {
     const [activeTab, setActiveTab] = useState<"wordpress" | "mobile" | "fullstack" | "graphics">("wordpress");
 
     return (
