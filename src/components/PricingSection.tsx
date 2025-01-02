@@ -1,7 +1,82 @@
 import React, {useState} from "react";
 
+const plans = [
+    {
+        title: 'Basic',
+        international: 100,
+        local: 7999,
+        services: {
+            wordpress: [
+                'Single-page WordPress website',
+                'Basic SEO setup',
+                'Responsive design',
+                'Simple contact form integration',
+            ],
+            mobile: ['Static splash screen', 'Basic navigation (React Native)', 'No backend functionality'],
+            fullstack: ['Static HTML/React landing page', 'Basic styling', 'No backend functionality'],
+            graphics: [""]
+        },
+    },
+    {
+        title: 'Standard',
+        international: 599,
+        local: 34999,
+        services: {
+            wordpress: [
+                'Multi-page WordPress website (up to 5 pages)',
+                'Intermediate SEO setup',
+                'Responsive design',
+                'Social media integration',
+            ],
+            mobile: [
+                'Multi-screen app',
+                'API integration',
+                'Authentication (email/password)',
+                'Supports iOS and Android',
+            ],
+            fullstack: [
+                'Simple full-stack web app',
+                'Basic backend (Node.js/Flask)',
+                'Database integration (PostgreSQL/MySQL)',
+            ],
+            graphics: [""]
+        },
+    },
+    {
+        title: 'Premium',
+        international: 999,
+        local: 49999,
+        services: {
+            wordpress: [
+                'Custom WordPress theme',
+                'Unlimited pages with advanced responsiveness',
+                'E-commerce integration (20 products)',
+                'Newsletter subscription setup',
+            ],
+            mobile: [
+                'Fully functional app',
+                'Advanced features (e.g., maps, notifications)',
+                'Backend with cloud storage (Firebase)',
+                'App store submission support',
+            ],
+            fullstack: [
+                'Complex full-stack web app',
+                'Advanced backend with API integrations',
+                'Real-time features (chat, notifications)',
+                'Deployment on AWS/GCP',
+            ],
+            graphics: [""]
+        },
+    },
+];
 
-const PricingSection = ({plans, currency, openModal}) => {
+interface PricingSectionProps {
+    currency: string; // Represents the user's selected currency, e.g., "USD", "KES", etc.
+    openModal: () => void; // A function that is triggered to open a modal.
+}
+
+
+const PricingSection: React.FC<PricingSectionProps> = ({currency, openModal}) => {
     const [activeTab, setActiveTab] = useState<"wordpress" | "mobile" | "fullstack" | "graphics">("wordpress");
 
     return (
