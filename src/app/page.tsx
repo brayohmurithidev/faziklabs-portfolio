@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import './globals.css'
 import {InlineWidget} from "react-calendly";
+import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 
 
 const projects = [
@@ -121,6 +122,7 @@ const LandingPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'wordpress' | 'mobile' | 'fullstack' | 'graphics'>('wordpress');
     const [currency, setCurrency] = useState('USD');
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const openModal = () => setModalOpen(true);
@@ -181,6 +183,31 @@ const LandingPage: React.FC = () => {
     }, []);
 
 
+    useEffect(() => {
+        const handleLoad = () => setIsLoading(false);
+
+        // Check if all resources are already loaded
+        if (document.readyState === 'complete') {
+            setIsLoading(false);
+        } else {
+            // Listen for when the window loads all resources
+            window.addEventListener('load', handleLoad);
+        }
+
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener('load', handleLoad);
+    }, []);
+
+    if (isLoading) {
+        return (<div className="fixed inset-0 bg-blue-600 flex items-center justify-center z-50">
+            <div className="text-white text-xl font-semibold animate-pulse">
+                Loading...
+            </div>
+        </div>)
+
+    }
+
+
     return (
         <>
             <div className="bg-gray-50">
@@ -219,13 +246,8 @@ const LandingPage: React.FC = () => {
                         className="relative text-white py-20 text-center min-h-96"
 
                     >
-
-                        <div
-                            className="absolute inset-0 bg-cover bg-center backdrop-blur-sm "
-                            style={{
-                                backgroundImage: `url(/assets/images/fliped-keyboard-scaled.jpg)`,
-                            }}
-                        ></div>
+                        <Image src={headerImage} className="absolute inset-0 bg-cover bg-center backdrop-blur-sm "
+                               alt={"flipped keyboard"} priority/>
                         {/*Overlay*/}
                         <div className="max-w-5xl mx-auto px-6 relative z-10">
                             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
