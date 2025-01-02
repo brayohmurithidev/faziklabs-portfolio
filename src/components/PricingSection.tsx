@@ -2,8 +2,8 @@ import React, {useState} from "react";
 
 interface Plan {
     title: string;
-    international: string;
-    local: number;
+    international: never;
+    local: never;
     services: Record<string, string[]>;
 }
 
