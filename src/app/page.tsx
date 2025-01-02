@@ -95,31 +95,6 @@ const LandingPage: React.FC = () => {
     }, []);
 
 
-    // useEffect(() => {
-    //     const handleLoad = () => setIsLoading(false);
-    //
-    //     // Check if all resources are already loaded
-    //     if (document.readyState === 'complete') {
-    //         setIsLoading(false);
-    //     } else {
-    //         // Listen for when the window loads all resources
-    //         window.addEventListener('load', handleLoad);
-    //     }
-    //
-    //     // Cleanup event listener on component unmount
-    //     return () => window.removeEventListener('load', handleLoad);
-    // }, []);
-
-    // if (isLoading) {
-    //     return (<div className="fixed inset-0 bg-blue-600 flex items-center justify-center z-50">
-    //         <div className="text-white text-xl font-semibold animate-pulse">
-    //             Loading...
-    //         </div>
-    //     </div>)
-    //
-    // }
-
-
     return (
         <Suspense fallback={<Loading/>}>
             <div className="bg-gray-50">
@@ -257,7 +232,7 @@ const LandingPage: React.FC = () => {
                         <div className="max-w-5xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-bold">Our Projects</h2>
                             <p className="mt-4 text-lg">Here are some projects we&#39;ve worked on:</p>
-                            <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
                                 {projects.map((project, index) => (
                                     <div
                                         key={index}
@@ -268,7 +243,7 @@ const LandingPage: React.FC = () => {
                                             style={{
                                                 backgroundImage: `url(${project.image})`,
                                             }}
-                                            className="w-full h-96 bg-cover bg-top transition-all duration-[3000ms] group-hover:bg-bottom"
+                                            className="w-full h-[78vh] bg-cover bg-top transition-all duration-[3000ms] group-hover:bg-bottom"
                                         ></div>
                                         <div
                                             className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white">
