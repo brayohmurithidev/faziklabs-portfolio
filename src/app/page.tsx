@@ -5,7 +5,7 @@ import './globals.css'
 import {InlineWidget} from "react-calendly";
 import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 
-import Navbar from "@/components/Navbar.tsx";
+import Navbar from "@/components/Navbar";
 
 
 const projects = [
