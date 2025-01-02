@@ -26,6 +26,7 @@ export default function RootLayout({
         <html lang="en">
         <head>
             <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+            <title>Fazilabs Digital Service</title>
         </head>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}

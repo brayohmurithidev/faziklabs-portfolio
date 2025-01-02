@@ -3,8 +3,12 @@ import React, {useState} from "react";
 const plans = [
     {
         title: 'Basic',
-        international: 100,
-        local: 7999,
+        prices: {
+            wordpress: 7999,
+            mobile: 100,
+            fullstack: 100,
+            graphics: 0, // or adjust if you have specific pricing for graphics
+        },
         services: {
             wordpress: [
                 'Single-page WordPress website',
@@ -19,8 +23,12 @@ const plans = [
     },
     {
         title: 'Standard',
-        international: 599,
-        local: 34999,
+        prices: {
+            wordpress: 34999,
+            mobile: 599,
+            fullstack: 599,
+            graphics: 0, // Adjust pricing as needed
+        },
         services: {
             wordpress: [
                 'Multi-page WordPress website (up to 5 pages)',
@@ -44,8 +52,12 @@ const plans = [
     },
     {
         title: 'Premium',
-        international: 999,
-        local: 49999,
+        prices: {
+            wordpress: 49999,
+            mobile: 999,
+            fullstack: 999,
+            graphics: 0, // Adjust pricing as needed
+        },
         services: {
             wordpress: [
                 'Custom WordPress theme',
@@ -116,8 +128,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({currency, openModal}) =>
                             <p className="text-lg font-bold mt-2 text-center">
                                 From{" "}
                                 {currency === "KES"
-                                    ? `Ksh. ${plan.local.toLocaleString()}`
-                                    : `$ ${plan.international}`}
+                                    ? `Ksh. ${plan.prices[activeTab].toLocaleString()}`
+                                    : `$ ${plan.prices[activeTab]}`}
                             </p>
                             <ul className="mt-4 text-sm text-gray-600">
                                 {plan.services[activeTab].map((service, i) => (
