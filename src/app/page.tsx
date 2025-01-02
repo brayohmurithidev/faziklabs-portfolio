@@ -292,7 +292,7 @@ const LandingPage: React.FC = () => {
                                     <p className="text-lg mb-4">Email: <a href="mailto:hello@fazilabs.com"
                                                                           className="text-yellow-400 hover:underline">hello@fazilabs.com</a>
                                     </p>
-                                    <p className="text-lg">Phone: +1 234 567 890</p>
+                                    <p className="text-lg">Phone: +254 706 134 387</p>
                                 </div>
                             </div>
 
