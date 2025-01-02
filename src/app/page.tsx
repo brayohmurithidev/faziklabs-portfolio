@@ -5,6 +5,8 @@ import './globals.css'
 import {InlineWidget} from "react-calendly";
 import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 
+import Navbar from "@/components/Navbar.tsx";
+
 
 const projects = [
     {
@@ -134,7 +136,7 @@ const LandingPage: React.FC = () => {
         alert('Thank you! Your details have been submitted.');
         closeModal();
     };
-    
+
 
     useEffect(() => {
         // Function to fetch user's location based on IP
@@ -189,33 +191,7 @@ const LandingPage: React.FC = () => {
         <>
             <div className="bg-gray-50">
                 {/* Navbar */}
-                <nav className="fixed w-full bg-white shadow-md z-50 top-0">
-                    <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-                        {/*<h1 className="text-xl font-bold text-blue-600">Fazilabs</h1>*/}
-                        <Image src={'/assets/images/logo-1.png'} alt={"Logo"} width={100} height={100}/>
-                        <ul className="hidden md:flex space-x-6">
-                            {['About Us', 'Services', 'Projects', 'Testimonials', 'Pricing'].map((label, index) => (
-                                <li key={index}>
-                                    <a
-                                        href={`#${label.toLowerCase().replace(' ', '-')}`}
-                                        className="text-gray-700 hover:text-blue-600 font-medium"
-                                    >
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                        <a
-                            href={`#contact`}
-                            className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-500 transition"
-                        >
-                            Book a Discovery Call
-                        </a>
-                        {/*<a href=""*/}
-                        {/*   onClick="Calendly.initPopupWidget({url: 'https://calendly.com/murithibrianm/project-discovery-call'});return false;">Schedule*/}
-                        {/*    time with me</a>*/}
-                    </div>
-                </nav>
+                <Navbar/>
 
                 <main className="mt-20">
                     {/* Hero Section */}
