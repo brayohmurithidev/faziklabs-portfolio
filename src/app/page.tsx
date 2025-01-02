@@ -6,7 +6,7 @@ import {InlineWidget} from "react-calendly";
 import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 
 import Navbar from "@/components/Navbar";
-import PricingSection from "@/components/PricingSection.tsx";
+import PricingSection from "@/components/PricingSection";
 
 
 const projects = [
