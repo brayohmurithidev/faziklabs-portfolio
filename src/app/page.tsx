@@ -134,52 +134,29 @@ const LandingPage: React.FC = () => {
         alert('Thank you! Your details have been submitted.');
         closeModal();
     };
-
+    
 
     useEffect(() => {
-        // Function to get user's geolocation
-        const getUserLocation = async () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const {latitude, longitude} = position.coords;
-                        await fetchLocationData(latitude, longitude);
-                    },
-                    (error) => {
-                        console.error('Error getting location:', error);
-                        setCurrency('USD'); // Default to USD if geolocation fails
-                    }
-                );
-            } else {
-                console.log('Geolocation is not supported by this browser.');
-                setCurrency('USD');
-            }
-        };
-
-        // Function to fetch location based on coordinates and currency data
-        const fetchLocationData = async (latitude: number, longitude: number) => {
-            // Get country from geolocation coordinates (you can also use other services)
+        // Function to fetch user's location based on IP
+        const fetchUserLocation = async () => {
             try {
-                const locationResponse = await fetch(`https://geocode.xyz/${latitude},${longitude}?json=1`);
-                const locationData = await locationResponse.json();
+                const response = await fetch('https://ipapi.co/json/'); // Free IP geolocation API
+                const data = await response.json();
 
-                // const userCurrency = locationData.countrycode;
-                if (locationData.country === 'Kenya') {
+                if (data.country_name === 'Kenya') {
                     setCurrency('KES');
+                } else if (data.currency) {
+                    setCurrency(data.currency);
                 } else {
-                    setCurrency('USD');
+                    setCurrency('USD'); // Default fallback
                 }
-
             } catch (err) {
-                console.log('Error fetching location data:', err);
+                console.error('Error fetching location:', err);
                 setCurrency('USD');
             }
         };
 
-
-        getUserLocation();
-
-
+        fetchUserLocation();
     }, []);
 
 
