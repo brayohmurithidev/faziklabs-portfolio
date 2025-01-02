@@ -195,25 +195,33 @@ const LandingPage: React.FC = () => {
 
                 <main className="mt-20">
                     {/* Hero Section */}
-                    <section
-                        className="relative text-white py-20 text-center min-h-96"
+                    <section className="relative text-white py-16 text-center">
+                        {/* Background Image */}
+                        <div className="absolute inset-0">
+                            <Image
+                                src={headerImage}
+                                alt="Flipped keyboard"
+                                className="w-full h-full object-cover"
+                                priority
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-40"/>
+                        </div>
 
-                    >
-                        <Image src={headerImage} className="absolute inset-0 bg-cover bg-center backdrop-blur-sm "
-                               alt={"flipped keyboard"} priority/>
-                        {/*Overlay*/}
-                        <div className="max-w-5xl mx-auto px-6 relative z-10">
-                            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                                Welcome to <span className="text-yellow-400">Fazilabs Digital Services</span>
+                        {/* Overlay Content */}
+                        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                                Welcome to{" "}
+                                <span className="text-yellow-400">Fazilabs Digital Services</span>
                             </h1>
-                            <p className="mt-6 text-lg md:text-2xl">
-                                Transforming your ideas into <span
-                                className="font-semibold">stunning websites</span> and <span className="font-semibold">mobile apps</span>.
+                            <p className="mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl">
+                                Transforming your ideas into{" "}
+                                <span className="font-semibold">stunning websites</span> and{" "}
+                                <span className="font-semibold">mobile apps</span>.
                             </p>
-                            <div className="mt-8">
+                            <div className="mt-6 sm:mt-8">
                                 <a
                                     href="#services"
-                                    className="px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"
+                                    className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"
                                 >
                                     Explore Our Services
                                 </a>
