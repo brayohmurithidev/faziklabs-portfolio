@@ -20,6 +20,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.dark {
+    --background: #1a202c; /* Dark gray */
+    --foreground: #f7fafc; /* Light gray */
+}
+
 @keyframes slide-down {
     from {
         opacity: 0;

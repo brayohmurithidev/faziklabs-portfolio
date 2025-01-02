@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import Image from "next/image";
 import './globals.css'
 import {InlineWidget} from "react-calendly";
@@ -7,6 +7,7 @@ import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 
 import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/PricingSection";
+import Loading from "@/components/Loading";
 
 
 const projects = [
@@ -56,7 +57,7 @@ const LandingPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     const [currency, setCurrency] = useState<string>('USD');
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
 
 
     const openModal = () => setModalOpen(true);
@@ -94,33 +95,33 @@ const LandingPage: React.FC = () => {
     }, []);
 
 
-    useEffect(() => {
-        const handleLoad = () => setIsLoading(false);
+    // useEffect(() => {
+    //     const handleLoad = () => setIsLoading(false);
+    //
+    //     // Check if all resources are already loaded
+    //     if (document.readyState === 'complete') {
+    //         setIsLoading(false);
+    //     } else {
+    //         // Listen for when the window loads all resources
+    //         window.addEventListener('load', handleLoad);
+    //     }
+    //
+    //     // Cleanup event listener on component unmount
+    //     return () => window.removeEventListener('load', handleLoad);
+    // }, []);
 
-        // Check if all resources are already loaded
-        if (document.readyState === 'complete') {
-            setIsLoading(false);
-        } else {
-            // Listen for when the window loads all resources
-            window.addEventListener('load', handleLoad);
-        }
-
-        // Cleanup event listener on component unmount
-        return () => window.removeEventListener('load', handleLoad);
-    }, []);
-
-    if (isLoading) {
-        return (<div className="fixed inset-0 bg-blue-600 flex items-center justify-center z-50">
-            <div className="text-white text-xl font-semibold animate-pulse">
-                Loading...
-            </div>
-        </div>)
-
-    }
+    // if (isLoading) {
+    //     return (<div className="fixed inset-0 bg-blue-600 flex items-center justify-center z-50">
+    //         <div className="text-white text-xl font-semibold animate-pulse">
+    //             Loading...
+    //         </div>
+    //     </div>)
+    //
+    // }
 
 
     return (
-        <>
+        <Suspense fallback={<Loading/>}>
             <div className="bg-gray-50">
                 {/* Navbar */}
                 <Navbar/>
@@ -331,9 +332,9 @@ const LandingPage: React.FC = () => {
                     </section>
 
                     {/* Footer */}
-                    <footer className="py-6 bg-gray-800 text-gray-300">
+                    <footer className="py-6 bg-gray-800 text-gray-300 sm:px-4">
                         <div className="text-center">
-                            <p>&copy; 2024 Fazilabs Digital Services. All rights reserved.</p>
+                            <p>&copy; 2025 Fazilabs Digital Services. All rights reserved.</p>
                         </div>
                     </footer>
                 </main>
@@ -411,7 +412,7 @@ const LandingPage: React.FC = () => {
             )}
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"
                     async></script>
-        </>
+        </Suspense>
     );
 };
 
