@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import './globals.css'
+import {InlineWidget} from "react-calendly";
 
 
 const projects = [
@@ -117,7 +118,6 @@ const plans = [
 ];
 
 const LandingPage: React.FC = () => {
-    const [showModal, setShowModal] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'wordpress' | 'mobile' | 'fullstack' | 'graphics'>('wordpress');
     const [currency, setCurrency] = useState('USD');
@@ -163,12 +163,13 @@ const LandingPage: React.FC = () => {
 
                 // const userCurrency = locationData.countrycode;
                 if (locationData.country === 'Kenya') {
-                    setCurrency('KES' || 'USD'); // Default to USD if no currency info available
-                    // console.log({userCurrency});
+                    setCurrency('KES');
+                } else {
+                    setCurrency('USD');
                 }
 
             } catch (err) {
-                console.error('Error fetching location data:', err);
+                console.log('Error fetching location data:', err);
                 setCurrency('USD');
             }
         };
@@ -180,13 +181,6 @@ const LandingPage: React.FC = () => {
     }, []);
 
 
-    const handleCalendlyPopup = () => {
-        // Calendly popup logic
-        Calendly.initPopupWidget({url: 'https://calendly.com/murithibrianm/project-discovery-call'});
-        return false;
-    };
-
-
     return (
         <>
             <div className="bg-gray-50">
@@ -196,7 +190,7 @@ const LandingPage: React.FC = () => {
                         {/*<h1 className="text-xl font-bold text-blue-600">Fazilabs</h1>*/}
                         <Image src={'/assets/images/logo-1.png'} alt={"Logo"} width={100} height={100}/>
                         <ul className="hidden md:flex space-x-6">
-                            {['About Us', 'Services', 'Projects', 'Testimonials', 'Pricing', 'Contact'].map((label, index) => (
+                            {['About Us', 'Services', 'Projects', 'Testimonials', 'Pricing'].map((label, index) => (
                                 <li key={index}>
                                     <a
                                         href={`#${label.toLowerCase().replace(' ', '-')}`}
@@ -207,13 +201,12 @@ const LandingPage: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        <button
-                            // onClick={() => setShowModal(true)}
-                            onClick={handleCalendlyPopup}
+                        <a
+                            href={`#contact`}
                             className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-500 transition"
                         >
                             Book a Discovery Call
-                        </button>
+                        </a>
                         {/*<a href=""*/}
                         {/*   onClick="Calendly.initPopupWidget({url: 'https://calendly.com/murithibrianm/project-discovery-call'});return false;">Schedule*/}
                         {/*    time with me</a>*/}
@@ -254,7 +247,8 @@ const LandingPage: React.FC = () => {
                     </section>
 
                     {/* About Section */}
-                    <section className="relative bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-20">
+                    <section id="about-us"
+                             className="relative bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-20">
                         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
                             {/* Text Content */}
                             <div data-aos="fade-right">
@@ -293,10 +287,12 @@ const LandingPage: React.FC = () => {
                             <div data-aos="fade-left" className="relative">
                                 <div
                                     className="absolute inset-0 bg-blue-500 rounded-lg transform scale-95 blur-xl opacity-40"></div>
-                                <img
+                                <Image
                                     src="/assets/images/header-background-image.png" // Replace with an actual image path
                                     alt="About Fazilabs"
                                     className="relative rounded-lg shadow-lg w-full object-cover"
+                                    width={100}
+                                    height={100}
                                 />
                             </div>
                         </div>
@@ -344,7 +340,7 @@ const LandingPage: React.FC = () => {
                     <section id="projects" className="py-16 px-6 bg-white text-gray-700">
                         <div className="max-w-5xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-bold">Our Projects</h2>
-                            <p className="mt-4 text-lg">Here are some projects we've worked on:</p>
+                            <p className="mt-4 text-lg">Here are some projects we&#39;ve worked on:</p>
                             <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                                 {projects.map((project, index) => (
                                     <div
@@ -416,7 +412,7 @@ const LandingPage: React.FC = () => {
                             <div
                                 className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 mt-10">
                                 <p className="mt-4 text-xl text-gray-600 w-[80%] mx-auto">
-                                    Have specific requirements? Share your details with us, and we'll create a
+                                    Have specific requirements? Share your details with us, and we&#39;ll create a
                                     tailored package just for you!
                                 </p>
                                 <button
@@ -430,16 +426,44 @@ const LandingPage: React.FC = () => {
                     </section>
 
                     {/* Contact Section */}
-                    <section id="contact" className="py-16 bg-blue-600 text-white ">
+                    <section id="contact" className="py-16 bg-blue-600 text-white">
                         <div className="max-w-5xl mx-auto text-center">
-                            <h2 className="text-3xl md:text-4xl font-bold ">Get in Touch</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold">Get in Touch</h2>
                             <p className="mt-4 text-lg">Contact us to discuss your project requirements.</p>
-                            <a
-                                href="mailto:hello@fazilabs.com"
-                                className="mt-6 inline-block px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"
-                            >
-                                Contact Us
-                            </a>
+
+                            {/* Flex Container for Calendly and Contact */}
+                            <div className="mt-10 flex flex-col md:flex-row justify-center  space-x-8">
+
+                                {/* Calendly Inline Widget */}
+                                <div className="flex-1 mb-6 md:mb-0">
+                                    {/*<div*/}
+                                    {/*    className="calendly-inline-widget w-full h-[630px]"*/}
+                                    {/*    data-url="https://calendly.com/murithibrianm/project-discovery-call?hide_event_type_details=1&hide_gdpr_banner=1"*/}
+
+                                    {/*></div>*/}
+                                    <InlineWidget
+                                        url='https://calendly.com/murithibrianm/project-discovery-call?hide_event_type_details=1&hide_gdpr_banner=1'/>
+                                </div>
+
+                                {/* Contact Details */}
+                                <div className="flex-1 text-left">
+                                    <h3 className="text-2xl font-semibold mb-4">Contact Details</h3>
+                                    <p className="text-lg mb-4">We would love to hear from you! Reach out to discuss
+                                        your ideas, and let’s work together to bring them to life.</p>
+                                    <p className="text-lg mb-4">Email: <a href="mailto:hello@fazilabs.com"
+                                                                          className="text-yellow-400 hover:underline">hello@fazilabs.com</a>
+                                    </p>
+                                    <p className="text-lg">Phone: +1 234 567 890</p>
+                                </div>
+                            </div>
+
+                            {/*/!* Call to Action Button *!/*/}
+                            {/*<a*/}
+                            {/*    href="mailto:hello@fazilabs.com"*/}
+                            {/*    className="mt-6 inline-block px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow hover:bg-yellow-300 transition"*/}
+                            {/*>*/}
+                            {/*    Contact Us*/}
+                            {/*</a>*/}
                         </div>
                     </section>
 
@@ -451,25 +475,7 @@ const LandingPage: React.FC = () => {
                     </footer>
                 </main>
             </div>
-            {/* Modal for Calendly */}
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative text-gray-700">
-                        <button
-                            onClick={() => setShowModal(false)}
-                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-                        >
-                            ✖
-                        </button>
-                        <h3 className="text-xl font-bold mb-4 text-center">Book a Discovery Call</h3>
-                        <div className="calendly-inline-widget min-w-[100%] h-[84vh]"
-                             data-url="https://calendly.com/murithibrianm/project-discovery-call?hide_event_type_details=1&hide_gdpr_banner=1"
 
-                        ></div>
-
-                    </div>
-                </div>
-            )}
 
             {/* Modal for Custom Plan */}
             {isModalOpen && (
