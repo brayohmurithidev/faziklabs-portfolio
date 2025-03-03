@@ -4,9 +4,9 @@ const plans = [
     {
         title: 'Basic',
         prices: {
-            wordpress: 7999,
-            mobile: 100,
-            fullstack: 100,
+            wordpress: 15000,
+            mobile: 59999,
+            fullstack: 119999,
             graphics: 0, // or adjust if you have specific pricing for graphics
         },
         services: {
@@ -25,8 +25,8 @@ const plans = [
         title: 'Standard',
         prices: {
             wordpress: 34999,
-            mobile: 599,
-            fullstack: 599,
+            mobile: 149999,
+            fullstack: 179999,
             graphics: 0, // Adjust pricing as needed
         },
         services: {
@@ -54,8 +54,8 @@ const plans = [
         title: 'Premium',
         prices: {
             wordpress: 49999,
-            mobile: 999,
-            fullstack: 999,
+            mobile: 249999,
+            fullstack: 499999,
             graphics: 0, // Adjust pricing as needed
         },
         services: {
