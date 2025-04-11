@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import Image from "next/image";
+import { motion } from 'framer-motion';
 
 interface Review {
     id: string;
@@ -49,23 +51,31 @@ const Testimonials: React.FC<TestimonialsPageProps> = ({
                 </div>
 
                 {/* Reviews Section */}
-                <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <motion.div
+                    className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
                     {loading ? (
                         <p className="text-center text-gray-500 col-span-full">
                             Loading reviews...
                         </p>
                     ) : reviews.length > 0 ? (
                         reviews.map((review) => (
-                            <div
+                            <motion.div
                                 key={review.id}
                                 className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+                                whileHover={{ scale: 1.05 }}
                             >
                                 <div className="flex items-center space-x-4">
                                     {review.profilePhoto ? (
-                                        <img
+                                        <Image
                                             src={review.profilePhoto}
                                             alt={review.author}
                                             className="w-12 h-12 rounded-full object-cover"
+                                            width={48}
+                                            height={48}
                                         />
                                     ) : (
                                         <div className="w-12 h-12 rounded-full bg-gray-200"></div>
@@ -79,14 +89,14 @@ const Testimonials: React.FC<TestimonialsPageProps> = ({
                                     </div>
                                 </div>
                                 <p className="mt-4 text-gray-600">{review.content}</p>
-                            </div>
+                            </motion.div>
                         ))
                     ) : (
                         <p className="text-center text-gray-500 col-span-full">
                             No reviews yet. Be the first to leave one!
                         </p>
                     )}
-                </div>
+                </motion.div>
 
                 {/* Add Review Button */}
                 <div className="text-center mt-12">

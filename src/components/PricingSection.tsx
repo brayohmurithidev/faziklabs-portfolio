@@ -4,10 +4,10 @@ const plans = [
     {
         title: 'Basic',
         prices: {
-            wordpress: 15000,
-            mobile: 59999,
-            fullstack: 119999,
-            graphics: 0, // or adjust if you have specific pricing for graphics
+            wordpress: 500,
+            mobile: 1200,
+            fullstack: 2000,
+            design: 300,
         },
         services: {
             wordpress: [
@@ -18,16 +18,16 @@ const plans = [
             ],
             mobile: ['Static splash screen', 'Basic navigation (React Native)', 'No backend functionality'],
             fullstack: ['Static HTML/React landing page', 'Basic styling', 'No backend functionality'],
-            graphics: [""]
+            design: ['Basic logo design', 'Simple poster design']
         },
     },
     {
         title: 'Standard',
         prices: {
-            wordpress: 34999,
-            mobile: 149999,
-            fullstack: 179999,
-            graphics: 0, // Adjust pricing as needed
+            wordpress: 1200,
+            mobile: 3000,
+            fullstack: 4500,
+            design: 800,
         },
         services: {
             wordpress: [
@@ -47,16 +47,16 @@ const plans = [
                 'Basic backend (Node.js/Flask)',
                 'Database integration (PostgreSQL/MySQL)',
             ],
-            graphics: [""]
+            design: ['Advanced logo design', 'Multi-page brochure design', 'Social media graphics']
         },
     },
     {
         title: 'Premium',
         prices: {
-            wordpress: 49999,
-            mobile: 249999,
-            fullstack: 499999,
-            graphics: 0, // Adjust pricing as needed
+            wordpress: 2500,
+            mobile: 6000,
+            fullstack: 10000,
+            design: 1500,
         },
         services: {
             wordpress: [
@@ -77,7 +77,7 @@ const plans = [
                 'Real-time features (chat, notifications)',
                 'Deployment on AWS/GCP',
             ],
-            graphics: [""]
+            design: ['Comprehensive branding package', 'Custom illustrations', 'High-quality print materials']
         },
     },
 ];
@@ -89,51 +89,51 @@ interface PricingSectionProps {
 
 
 const PricingSection: React.FC<PricingSectionProps> = ({currency, openModal}) => {
-    const [activeTab, setActiveTab] = useState<"wordpress" | "mobile" | "fullstack" | "graphics">("wordpress");
+    const [activeTab, setActiveTab] = useState<"wordpress" | "mobile" | "fullstack" | "design">("wordpress");
 
     return (
-        <section id="pricing" className="py-16 bg-gray-100 text-gray-700">
+        <section id="pricing" className="py-16 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700">
             <div className="max-w-5xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-bold">Pricing</h2>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800">Pricing</h2>
 
                 {/* Tabs */}
-                <div className="mt-6 flex flex-wrap justify-center gap-4">
-                    {["wordpress", "mobile", "fullstack", "graphics"].map((tab) => (
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                    {['wordpress', 'mobile', 'fullstack', 'design'].map((tab) => (
                         <button
                             key={tab}
-                            className={`px-4 py-2 rounded ${
-                                activeTab === tab ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
+                            className={`px-6 py-3 rounded-full shadow-md transition-all duration-300 ${
+                                activeTab === tab ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-800 hover:bg-gray-400'
                             }`}
-                            onClick={() => setActiveTab(tab as "wordpress" | "mobile" | "fullstack" | "graphics")}
+                            onClick={() => setActiveTab(tab as 'wordpress' | 'mobile' | 'fullstack' | 'design')}
                         >
-                            {tab === "wordpress"
-                                ? "WordPress"
-                                : tab === "mobile"
-                                    ? "Mobile Development"
-                                    : tab === "fullstack"
-                                        ? "Full-Stack"
-                                        : "Design"}
+                            {tab === 'wordpress'
+                                ? 'WordPress'
+                                : tab === 'mobile'
+                                ? 'Mobile Development'
+                                : tab === 'fullstack'
+                                ? 'Full-Stack'
+                                : 'Design'}
                         </button>
                     ))}
                 </div>
 
                 {/* Plans */}
-                <div className="mt-10 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-12 grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {plans.map((plan, index) => (
                         <div
                             key={index}
-                            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 text-left"
+                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-left"
                         >
-                            <h4 className="text-xl font-semibold text-center">{plan.title}</h4>
-                            <p className="text-lg font-bold mt-2 text-center">
-                                From{" "}
-                                {currency === "KES"
-                                    ? `Ksh. ${plan.prices[activeTab].toLocaleString()}`
-                                    : `$ ${plan.prices[activeTab]}`}
+                            <h4 className="text-2xl font-bold text-center text-gray-900">{plan.title}</h4>
+                            <p className="text-xl font-semibold mt-4 text-center text-gray-700">
+                                From ${plan.prices[activeTab].toLocaleString()}
                             </p>
-                            <ul className="mt-4 text-sm text-gray-600">
+                            <ul className="mt-6 text-base text-gray-600 space-y-2">
                                 {plan.services[activeTab].map((service, i) => (
-                                    <li key={i}>- {service}</li>
+                                    <li key={i} className="flex items-center space-x-2">
+                                        <span className="text-blue-500">✓</span>
+                                        <span>{service}</span>
+                                    </li>
                                 ))}
                             </ul>
                         </div>
@@ -141,14 +141,14 @@ const PricingSection: React.FC<PricingSectionProps> = ({currency, openModal}) =>
                 </div>
 
                 {/* Custom Pricing Option */}
-                <div className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 mt-10">
-                    <p className="mt-4 text-xl text-gray-600 w-[80%] mx-auto">
+                <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 mt-12">
+                    <p className="mt-4 text-2xl text-gray-700 w-[80%] mx-auto">
                         Have specific requirements? Share your details with us, and we&#39;ll create a tailored
                         package just for you!
                     </p>
                     <button
                         onClick={openModal}
-                        className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+                        className="mt-8 px-6 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition duration-300"
                     >
                         Get a Customized Plan
                     </button>

@@ -1,13 +1,17 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 
-const Loading = ({}) => {
+const Loading: React.FC = () => {
     return (
-        <div className="fixed inset-0 bg-blue-600 flex items-center justify-center z-50">
-            <div className="text-white text-xl font-semibold animate-pulse">
-                Loading...
-            </div>
-        </div>
+        <motion.div
+            className="flex justify-center items-center h-screen"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+        </motion.div>
     );
 };
 
