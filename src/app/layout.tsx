@@ -1,17 +1,17 @@
 "use client";
 
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Roboto } from 'next/font/google'
+import './globals.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import { motion } from 'framer-motion'
+import Loading from '@/components/Loading'
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+const roboto = Roboto({
+    weight: ['300', '400', '500', '700'],
+    subsets: ['latin'],
+    variable: '--font-roboto',
 });
 
 // export const metadata: Metadata = {
@@ -32,12 +32,10 @@ export default function RootLayout({
             <meta name="keywords" content="Fazilabs, Digital Services, Web Development, Mobile Apps, SEO, WordPress, React Native" />
             <meta name="author" content="Fazilabs" />
         </head>
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body className={`${roboto.variable} antialiased`}>
             <style jsx global>{`
               body {
-                font-family: 'Inter', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 background-color: #f9fafb;
                 color: #1f2937;
                 margin: 0;

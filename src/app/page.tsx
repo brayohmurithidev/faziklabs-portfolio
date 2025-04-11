@@ -5,11 +5,16 @@ import './globals.css'
 import {InlineWidget} from "react-calendly";
 import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 import { motion } from 'framer-motion';
-
-import Navbar from "@/components/Navbar";
+import Link from 'next/link'
+import { FaArrowRight, FaCheck, FaStar } from 'react-icons/fa'
+import { MdOutlineEmail } from 'react-icons/md'
+import { FaPhone } from 'react-icons/fa6'
+import { FaLocationDot } from 'react-icons/fa6'
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import PricingSection from "@/components/PricingSection";
 import Loading from "@/components/Loading";
 import Testimonials from "@/components/Testimonials";
+import Navbar from '@/components/Navbar';
 
 
 const projects = [
@@ -243,9 +248,17 @@ const LandingPage: React.FC = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: 0.6 }}
                                 >
-                                    Hi, I'm Brian Murithi, a passionate full-stack developer and the founder of Fazilabs. 
+                                    Hi, I&apos;m Brian Murithi, a passionate full-stack developer and the founder of Fazilabs. 
                                     With expertise in WordPress, React, and mobile app development, I help businesses transform 
                                     their ideas into powerful digital solutions.
+                                </motion.p>
+                                <motion.p 
+                                    className="text-lg mb-6 leading-relaxed"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.6 }}
+                                >
+                                    I&apos;m passionate about creating innovative solutions that help businesses grow and succeed in the digital world.
                                 </motion.p>
                                 <motion.ul 
                                     className="space-y-4"
