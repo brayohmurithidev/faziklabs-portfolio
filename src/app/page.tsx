@@ -2,19 +2,13 @@
 import React, {Suspense, useEffect, useState} from 'react';
 import Image from "next/image";
 import './globals.css'
-import {InlineWidget} from "react-calendly";
 import headerImage from "@/../public/assets/images/fliped-keyboard-scaled.jpg"
 import { motion } from 'framer-motion';
-import Link from 'next/link'
-import { FaArrowRight, FaCheck, FaStar } from 'react-icons/fa'
-import { MdOutlineEmail } from 'react-icons/md'
-import { FaPhone } from 'react-icons/fa6'
-import { FaLocationDot } from 'react-icons/fa6'
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
+
+import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/PricingSection";
 import Loading from "@/components/Loading";
 import Testimonials from "@/components/Testimonials";
-import Navbar from '@/components/Navbar';
 
 
 const projects = [
@@ -68,10 +62,6 @@ const LandingPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [showScrollToTop, setShowScrollToTop] = useState(false);
 
-    const [currency, setCurrency] = useState<string>('USD');
-    // const [isLoading, setIsLoading] = useState(true);
-
-
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
@@ -82,29 +72,7 @@ const LandingPage: React.FC = () => {
         closeModal();
     };
 
-
     useEffect(() => {
-        // Function to fetch user's location based on IP
-        const fetchUserLocation = async () => {
-            try {
-                const response = await fetch('https://ipapi.co/json/'); // Free IP geolocation API
-                const data = await response.json();
-
-                if (data.country_name === 'Kenya') {
-                    setCurrency('KES');
-                } else if (data.currency) {
-                    setCurrency(data.currency);
-                } else {
-                    setCurrency('USD'); // Default fallback
-                }
-            } catch (err) {
-                console.error('Error fetching location:', err);
-                setCurrency('USD');
-            }
-        };
-
-        fetchUserLocation();
-
         const handleScroll = () => {
             if (window.scrollY > 300) {
                 setShowScrollToTop(true);
@@ -252,14 +220,6 @@ const LandingPage: React.FC = () => {
                                     With expertise in WordPress, React, and mobile app development, I help businesses transform 
                                     their ideas into powerful digital solutions.
                                 </motion.p>
-                                <motion.p 
-                                    className="text-lg mb-6 leading-relaxed"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.6 }}
-                                >
-                                    I&apos;m passionate about creating innovative solutions that help businesses grow and succeed in the digital world.
-                                </motion.p>
                                 <motion.ul 
                                     className="space-y-4"
                                     initial={{ opacity: 0 }}
@@ -311,7 +271,7 @@ const LandingPage: React.FC = () => {
                                     whileHover={{ scale: 1.05 }}
                                     className="overflow-hidden rounded-lg"
                                 >
-                                    <Image
+                                <Image
                                         src="/assets/images/AFRIVEN_Profile.png"
                                         alt="Brian Murithi - Full Stack Developer"
                                         className="relative rounded-lg shadow-lg w-full h-[400px] object-contain transition-transform duration-700 ease-out"
@@ -433,7 +393,7 @@ const LandingPage: React.FC = () => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                                 </svg>
                                             </a>
-                                        </div>
+                                    </div>
                                     </motion.div>
                                 ))}
                             </div>
@@ -445,29 +405,29 @@ const LandingPage: React.FC = () => {
                     <section id="projects" className="py-16 px-6 bg-white text-gray-700">
                         <div className="max-w-5xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-bold">Our Projects</h2>
-                            <p className="mt-4 text-lg">Here are some projects we've worked on:</p>
+                            <p className="mt-4 text-lg">Here&apos;s some projects we&apos;ve worked on:</p>
                             <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
                                 {projects.map((project, index) => (
                                     <a href={project.link} target="_blank" rel="noopener noreferrer" key={index}>
+                                    <div
+                                        className="relative group bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 "
+                                    >
                                         <div
-                                            className="relative group bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 "
-                                        >
+                                            style={{
+                                                backgroundImage: `url(${project.image})`,
+                                            }}
+                                            className="w-full h-[78vh] bg-cover bg-top transition-all duration-[3000ms] group-hover:bg-bottom"
+                                        ></div>
+                                        <div
+                                            className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white">
                                             <div
-                                                style={{
-                                                    backgroundImage: `url(${project.image})`,
-                                                }}
-                                                className="w-full h-[78vh] bg-cover bg-top transition-all duration-[3000ms] group-hover:bg-bottom"
-                                            ></div>
-                                            <div
-                                                className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white">
-                                                <div
-                                                    className="bg-white w-[80%] rounded-lg transition-all ease-in-out duration-[4000ms] text-gray-700 p-3">
-                                                    <h3 className="text-xl font-bold">{project.title}</h3>
-                                                    <p className="mt-2 text-xs font-semibold">{project.techStack}</p>
-                                                    <p className="mt-2 text-sm">{project.description}</p>
-                                                </div>
+                                                className="bg-white w-[80%] rounded-lg transition-all ease-in-out duration-[4000ms] text-gray-700 p-3">
+                                                <h3 className="text-xl font-bold">{project.title}</h3>
+                                                <p className="mt-2 text-xs font-semibold">{project.techStack}</p>
+                                                <p className="mt-2 text-sm">{project.description}</p>
                                             </div>
                                         </div>
+                                    </div>
                                     </a>
                                 ))}
                             </div>
@@ -478,7 +438,7 @@ const LandingPage: React.FC = () => {
                     <Testimonials />
 
                     {/*Pricing*/}
-                    <PricingSection currency={currency} openModal={openModal}/>
+                    <PricingSection openModal={openModal}/>
 
                     {/* Contact Section */}
                     <section id="contact" className="py-16 bg-blue-600 text-white">
@@ -486,14 +446,14 @@ const LandingPage: React.FC = () => {
                             <h2 className="text-3xl md:text-4xl font-bold">Get in Touch</h2>
                             <p className="mt-4 text-lg">Contact us to discuss your project requirements.</p>
 
-                            {/* Contact Details */}
+                                {/* Contact Details */}
                             <div className="mt-10 max-w-2xl mx-auto text-left">
-                                <h3 className="text-2xl font-semibold mb-4">Contact Details</h3>
-                                <p className="text-lg mb-4">We would love to hear from you! Reach out to discuss
+                                    <h3 className="text-2xl font-semibold mb-4">Contact Details</h3>
+                                    <p className="text-lg mb-4">We would love to hear from you! Reach out to discuss
                                     your ideas, and let&apos;s work together to bring them to life.</p>
-                                <p className="text-lg mb-4">Email: <a href="mailto:hello@fazilabs.com"
-                                                                      className="text-yellow-400 hover:underline">hello@fazilabs.com</a>
-                                </p>
+                                    <p className="text-lg mb-4">Email: <a href="mailto:hello@fazilabs.com"
+                                                                          className="text-yellow-400 hover:underline">hello@fazilabs.com</a>
+                                    </p>
                                 <p className="text-lg mb-6">Phone: +254 706 134 387</p>
                                 <a
                                     href="https://calendly.com/murithibrianm/project-discovery-call"
